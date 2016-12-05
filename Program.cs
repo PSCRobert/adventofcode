@@ -10,7 +10,7 @@ namespace ConsoleApplication
     {
         public static void Main(string[] args)
         {
-            //PartOne();
+            PartOne();
             PartTwo();
         }
 
