@@ -1,86 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace ConsoleApplication
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            PartOne();
-            PartTwo();
-        }
-
-        public static void PartOne()
-        {
-            int result = 0;
-
-            using (var sr = new StringReader(Input()))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    result += GetIdIfValid(line);
-                }
-            }
-            Console.WriteLine(result);
-        }
-
-        public static void PartTwo()
-        {
-            using (var sr = new StringReader(Input()))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    if (GetIdIfValid(line) != 0)
-                    {
-                        int id = int.Parse(line.Split('-').Last().Split('[')[0]);
-                        int shift = id % 26;
-                        List<char> result = new List<char>();
-
-                        var chars = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz".ToCharArray();                        
-                        
-                        foreach (var c in line.Split('[')[0].Replace($"-{id}", "").ToCharArray())
-                        {
-                            var x = Array.IndexOf(chars, c);
-                            result.Add(chars[x + shift]);
-                        }
-
-                        Console.WriteLine(new string(result.ToArray()) + " " + id);
-                    }
-                }
-            }
-        }
-
-        public static int GetIdIfValid(string input)
-        {
-            string checksum = input.Split('[')[1].Split(']')[0];
-            int id = int.Parse(input.Split('-').Last().Split('[')[0]);
-            string name = input.Split('[')[0].Replace($"-{id}", "");
-            
-            var dict = new List<KeyValuePair<char, int>>();
-
-            for (char i = 'a'; i <= 'z'; i++)
-            {
-                dict.Add(new KeyValuePair<char, int>(i, name.Count(x => x == i)));    
-            }
-
-            dict = dict.OrderByDescending(a => a.Value).ToList();
-
-            var newchecksum = new string(dict.Take(5).Select(a => a.Key).ToArray());
-            
-            if (newchecksum == checksum)
-                return id;
-            
-            return 0;
-        }
-
-        public static string Input()
-        {
-            return @"nzydfxpc-rclop-qwzhpc-qtylyntyr-769[oshgk]
+nzydfxpc-rclop-qwzhpc-qtylyntyr-769[oshgk]
 qzlozfhmf-bzmcx-bnzshmf-zbpthrhshnm-339[zmxdi]
 xtwtelcj-rclop-upwwjmply-zapcletzyd-743[itbds]
 mrxivrexmsrep-fewoix-ywiv-xiwxmrk-308[kzypw]
@@ -1145,7 +1063,4 @@ oknkvcta-itcfg-uecxgpigt-jwpv-fgukip-856[gcikp]
 shoewudys-rkddo-qdqboiyi-530[doiqs]
 mrxivrexmsrep-gerhc-pefsvexsvc-828[ubzia]
 fydelmwp-mfyyj-hzcvdsza-769[anbml]
-rwcnawjcrxwju-ljwmh-bqryyrwp-277[nxatm]";
-        }
-    }
-}
+rwcnawjcrxwju-ljwmh-bqryyrwp-277[nxatm]
