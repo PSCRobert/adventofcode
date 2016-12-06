@@ -1,39 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace ConsoleApplication
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            List<string> list = Input().Split(Environment.NewLine.ToCharArray()[0]).ToList();
-            string result = "";
-
-            for (int i = 0; i < 8; i++)
-            {
-                string column = "";
-                foreach (var item in list)
-                {
-                    column += item.Replace("\n", "").ToCharArray()[i];
-                }
-
-                var dict = new List<KeyValuePair<char, int>>();
-
-                for (char j = 'a'; j <= 'z'; j++)
-                {
-                    dict.Add(new KeyValuePair<char, int>(j, column.Count(x => x == j)));
-                }
-                dict = dict.Where(a => a.Value != 0).OrderBy(a => a.Value).ToList();  
-                result += dict.First().Key; 
-            }
-            Console.WriteLine(result);
-        }
-
-        public static string Input() =>
-            @"vhrvabtc
+vhrvabtc
 rzzdexux
 pixjplcd
 imtxrwpe
@@ -656,6 +621,4 @@ ifsynwcy
 odcgknnc
 omcsclgb
 zhjrucwj
-zloeydhr";
-    }
-}
+zloeydhr
